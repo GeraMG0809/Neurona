@@ -194,3 +194,24 @@ void MainWindow::on_pushButton_5_clicked()
 
 
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    admin.Ordenamiento_id();
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    admin.Ordenamiento_voltaje();
+}
+
+
+void MainWindow::on_pushButton_8_clicked()
+{
+
+    admin.calcularDistancias(scene);
+    ui->graphicsView->setScene(&scene);
+    ui->graphicsView->show();
+}
+

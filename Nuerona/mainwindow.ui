@@ -19,12 +19,12 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>701</width>
+      <width>741</width>
       <height>511</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -34,8 +34,8 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>350</y>
-        <width>151</width>
+        <y>370</y>
+        <width>391</width>
         <height>51</height>
        </rect>
       </property>
@@ -151,10 +151,10 @@
      <widget class="QPlainTextEdit" name="plainTextEdit">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>230</y>
-        <width>191</width>
-        <height>151</height>
+        <x>460</x>
+        <y>40</y>
+        <width>241</width>
+        <height>311</height>
        </rect>
       </property>
      </widget>
@@ -173,7 +173,7 @@
        <rect>
         <x>40</x>
         <y>290</y>
-        <width>151</width>
+        <width>391</width>
         <height>51</height>
        </rect>
       </property>
@@ -194,10 +194,10 @@
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>350</x>
-        <y>400</y>
-        <width>111</width>
-        <height>41</height>
+        <x>460</x>
+        <y>360</y>
+        <width>241</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -238,6 +238,45 @@
       </property>
       <property name="text">
        <string>Posicion_X</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>241</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>                               Neuronas</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>400</y>
+        <width>241</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ordenar por id</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>440</y>
+        <width>241</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ordenar por voltaje</string>
       </property>
      </widget>
     </widget>
@@ -296,14 +335,27 @@
      <widget class="QPushButton" name="pushButton_5">
       <property name="geometry">
        <rect>
-        <x>280</x>
+        <x>40</x>
         <y>400</y>
-        <width>121</width>
+        <width>231</width>
         <height>51</height>
        </rect>
       </property>
       <property name="text">
        <string>Mostrar</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_8">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>400</y>
+        <width>231</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Puntos cercanos</string>
       </property>
      </widget>
     </widget>

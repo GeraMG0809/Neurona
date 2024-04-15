@@ -63,18 +63,22 @@ public:
 
     friend bool operator<(const Neurona& n1, const Neurona& n2) {
         return n1.getId() < n2.getId();
+        return n1.getVoltaje() < n2.getVoltaje();
     }
 
     friend bool operator>(const Neurona& n1, const Neurona& n2) {
         return n1.getId() > n2.getId();
+        return n1.getVoltaje() > n2.getVoltaje();
     }
 
     friend bool operator==(const Neurona& n1, const Neurona& n2) {
         return n1.getId() == n2.getId();
+        return n1.getVoltaje() == n2.getVoltaje();
     }
 
     friend bool operator!=(const Neurona& n1, const Neurona& n2) {
         return n1.getId() != n2.getId();
+        return n1.getVoltaje() != n2.getVoltaje();
     }
 };
 
