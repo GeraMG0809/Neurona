@@ -291,25 +291,44 @@ void LSLSE<T>::Ordenamiento_voltaje() {
 template<class T>
 void LSLSE<T>::calcularDistancias(QGraphicsScene& scene) {
     node<T>* actual = header;
-    while (actual != nullptr) {
-        node<T>* siguiente = actual->getSiguiente();
 
-        while (siguiente != nullptr) {
+    while (actual != nullptr) {
+        node<T>* otraNeurona = header;
+        float menorDistancia;
+        node<T>* neuronaCercana = nullptr;
+
+        while (otraNeurona != nullptr) {
+            if (otraNeurona != actual) {
+                float x1 = actual->getData().getPosicion_x() + actual->getData().getVoltaje() / 2;
+                float y1 = actual->getData().getPosicion_y() + actual->getData().getVoltaje() / 2;
+                float x2 = otraNeurona->getData().getPosicion_x() + otraNeurona->getData().getVoltaje() / 2;
+                float y2 = otraNeurona->getData().getPosicion_y() + otraNeurona->getData().getVoltaje() / 2;
+
+                float distancia = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+
+                if (distancia < menorDistancia) {
+                    menorDistancia = distancia;
+                    neuronaCercana = otraNeurona;
+                }
+            }
+
+            otraNeurona = otraNeurona->getSiguiente();
+        }
+
+        if (neuronaCercana != nullptr) {
             float x1 = actual->getData().getPosicion_x() + actual->getData().getVoltaje() / 2;
             float y1 = actual->getData().getPosicion_y() + actual->getData().getVoltaje() / 2;
-            float x2 = siguiente->getData().getPosicion_x() + siguiente->getData().getVoltaje() / 2;
-            float y2 = siguiente->getData().getPosicion_y() + siguiente->getData().getVoltaje() / 2;
-
-            float distancia = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+            float x2 = neuronaCercana->getData().getPosicion_x() + neuronaCercana->getData().getVoltaje() / 2;
+            float y2 = neuronaCercana->getData().getPosicion_y() + neuronaCercana->getData().getVoltaje() / 2;
 
             scene.addLine(x1, y1, x2, y2);
-
-            siguiente = siguiente->getSiguiente();
         }
 
         actual = actual->getSiguiente();
     }
 }
+
+
 
 
 #endif // LISTALIGADA_H
