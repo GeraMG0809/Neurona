@@ -9,6 +9,11 @@
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
 #include <QGraphicsTextItem>
+#include <vector>
+#include <stack>
+#include <queue>
+#include <unordered_set>
+
 
 template<class T>
 class node {
@@ -65,6 +70,7 @@ private:
     std::vector<std::vector<int>> adyacencia;
     int contador;
 public:
+
     LSLSE() :header(nullptr) {};
     bool vacia()const;
     node<T>* ultimo()const;
@@ -88,6 +94,14 @@ public:
     void construirListaAdyacencia();
     void imprimirListaAdyacencia(std::string&) const;
     void reasignarIDs();
+
+    node<T>* encontrarNodoConIdMasPequeno() const;
+
+    void recorrido_profundidad(int startId, std::string& resultadoDFS);
+    void recorrid_amplitud(int startId, std::string& resultadoBFS);
+    void imprimirProfundidad(int startId, std::string& dfsStr);
+    void imprimirAmplitud(int startId, std::string& bfsStr);
+
 };
 
 template<class T>
@@ -356,7 +370,6 @@ void LSLSE<T>::calcularDistancias(QGraphicsScene& scene) {
 
 template<class T>
 void LSLSE<T>::construirListaAdyacencia() {
-
     adyacencia.resize(100);
     for (size_t i = 0; i < 100; i++) {
         adyacencia[i].resize(100);
@@ -364,7 +377,6 @@ void LSLSE<T>::construirListaAdyacencia() {
             adyacencia[i][j] = 0;
         }
     }
-
 
     node<T>* actual = header;
 
@@ -375,10 +387,10 @@ void LSLSE<T>::construirListaAdyacencia() {
 
         while (otraNeurona != nullptr) {
             if (otraNeurona != actual) {
-                float x1 = actual->getData().getPosicion_x() + actual->getData().getVoltaje() / 2;
-                float y1 = actual->getData().getPosicion_y() + actual->getData().getVoltaje() / 2;
-                float x2 = otraNeurona->getData().getPosicion_x() + otraNeurona->getData().getVoltaje() / 2;
-                float y2 = otraNeurona->getData().getPosicion_y() + otraNeurona->getData().getVoltaje() / 2;
+                float x1 = actual->getData().getPosicion_x();
+                float y1 = actual->getData().getPosicion_y();
+                float x2 = otraNeurona->getData().getPosicion_x();
+                float y2 = otraNeurona->getData().getPosicion_y();
 
                 float distancia = sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 
@@ -395,11 +407,13 @@ void LSLSE<T>::construirListaAdyacencia() {
             int id1 = actual->getData().getId();
             int id2 = neuronaCercana->getData().getId();
             adyacencia[id1][id2] = 1;
+            std::cout << "Conectando nodo " << id1 << " con nodo " << id2 << std::endl; // Imprimir conexiones
         }
 
         actual = actual->getSiguiente();
     }
 }
+
 
 template<class T>
 void LSLSE<T>::imprimirListaAdyacencia(std::string& listaAdyacenciaStr) const {
@@ -415,6 +429,7 @@ void LSLSE<T>::imprimirListaAdyacencia(std::string& listaAdyacenciaStr) const {
     }
 }
 
+
 template<class T>
 void LSLSE<T>::reasignarIDs() {
     int id = 0;
@@ -425,6 +440,86 @@ void LSLSE<T>::reasignarIDs() {
         actual = actual->getSiguiente();
     }
 }
+
+template<class T>
+node<T>* LSLSE<T>::encontrarNodoConIdMasPequeno() const {
+    if (vacia()) return nullptr;
+
+    node<T>* actual = header;
+    node<T>* nodoConIdMasPequeno = actual;
+
+    while (actual != nullptr) {
+        if (actual->getData().getId() < nodoConIdMasPequeno->getData().getId()) {
+            nodoConIdMasPequeno = actual;
+        }
+        actual = actual->getSiguiente();
+    }
+
+    return nodoConIdMasPequeno;
+}
+
+
+template<class T>
+void LSLSE<T>::recorrido_profundidad(int startId, std::string& resultadoDFS) {
+    std::stack<int> stack;
+    std::unordered_set<int> visitados;
+
+    stack.push(startId);
+    visitados.insert(startId);
+
+    while (!stack.empty()) {
+        int id = stack.top();
+        stack.pop();
+        resultadoDFS += std::to_string(id) + " ";
+
+        for (int i = adyacencia[id].size() - 1; i >= 0; --i) {
+            if (adyacencia[id][i] == 1 && visitados.find(i) == visitados.end()) {
+                stack.push(i);
+                visitados.insert(i);
+            }
+        }
+    }
+}
+
+// Implementación del método BFS
+template<class T>
+void LSLSE<T>::recorrid_amplitud(int startId, std::string& resultadoBFS) {
+    std::queue<int> queue;
+    std::unordered_set<int> visitados;
+
+    queue.push(startId);
+    visitados.insert(startId);
+
+    while (!queue.empty()) {
+        int id = queue.front();
+        queue.pop();
+        resultadoBFS += std::to_string(id) + " ";
+
+        for (size_t i = 0; i < adyacencia[id].size(); ++i) {
+            if (adyacencia[id][i] == 1 && visitados.find(i) == visitados.end()) {
+                queue.push(i);
+                visitados.insert(i);
+            }
+        }
+    }
+}
+
+// Implementación de la función de impresión de DFS
+template<class T>
+void LSLSE<T>::imprimirProfundidad(int startId, std::string& dfsStr) {
+    std::string resultadoDFS;
+    recorrido_profundidad(startId, resultadoDFS);
+    dfsStr = "Recorrido DFS desde nodo " + std::to_string(startId) + ": " + resultadoDFS + "\n";
+}
+
+// Implementación de la función de impresión de BFS
+template<class T>
+void LSLSE<T>::imprimirAmplitud(int startId, std::string& bfsStr) {
+    std::string resultadoBFS;
+    recorrid_amplitud(startId, resultadoBFS);
+    bfsStr = "Recorrido BFS desde nodo " + std::to_string(startId) + ": " + resultadoBFS + "\n";
+}
+
 
 
 #endif // LISTALIGADA_H

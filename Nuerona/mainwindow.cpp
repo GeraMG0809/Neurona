@@ -216,8 +216,7 @@ void MainWindow::on_pushButton_8_clicked()
 }
 
 
-void MainWindow::on_pushButton_9_clicked()
-{
+void MainWindow::on_pushButton_9_clicked() {
     ui->plainTextEdit_2->clear();
     admin.reasignarIDs();
     admin.construirListaAdyacencia();
@@ -226,3 +225,25 @@ void MainWindow::on_pushButton_9_clicked()
     admin.imprimirListaAdyacencia(listaAdyacenciaStr);
     ui->plainTextEdit_2->insertPlainText(QString::fromStdString(listaAdyacenciaStr));
 }
+
+void MainWindow::on_pushButton_10_clicked() {
+    node<Neurona>* nodoInicial = admin.encontrarNodoConIdMasPequeno();
+    int startID = nodoInicial->getData().getId();
+
+    std::string dfsStr;
+    admin.imprimirProfundidad(startID, dfsStr);
+    ui->plainTextEdit_2->clear();
+    ui->plainTextEdit_2->insertPlainText(QString::fromStdString(dfsStr));
+}
+
+void MainWindow::on_pushButton_11_clicked() {
+    node<Neurona>* nodoInicial = admin.encontrarNodoConIdMasPequeno();
+    int startID = nodoInicial->getData().getId();
+
+    std::string bfsStr;
+    admin.imprimirAmplitud(startID, bfsStr);
+    ui->plainTextEdit_2->clear();
+    ui->plainTextEdit_2->insertPlainText(QString::fromStdString(bfsStr));
+}
+
+

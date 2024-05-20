@@ -376,14 +376,40 @@
      <widget class="QPushButton" name="pushButton_9">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>340</y>
-        <width>271</width>
-        <height>61</height>
+        <x>30</x>
+        <y>330</y>
+        <width>641</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="text">
        <string>PushButton</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_10">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>380</y>
+        <width>641</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Recorrido en Amplitud</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_11">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>430</y>
+        <width>641</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Recorrido en Profundidad</string>
       </property>
      </widget>
     </widget>
